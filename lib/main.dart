@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
-import 'package:syriancards/screens/login_screen.dart';
+import 'package:syrian_cards/screens/login_screen.dart';
 
 void main() {
   OneSignal.shared.setNotificationWillShowInForegroundHandler(

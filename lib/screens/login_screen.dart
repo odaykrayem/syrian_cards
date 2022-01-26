@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-import 'package:syriancards/widgets/signup.dart';
-import 'package:syriancards/widgets/signup_option.dart';
+import 'package:syrian_cards/widgets/signup.dart';
+import 'package:syrian_cards/widgets/signup_option.dart';
 
-import 'package:syriancards/widgets/login.dart';
-import 'package:syriancards/widgets/login_option.dart';
+import 'package:syrian_cards/widgets/login.dart';
+import 'package:syrian_cards/widgets/login_option.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);

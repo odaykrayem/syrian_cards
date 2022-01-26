@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:syriancards/screens/navigation_home_screen.dart';
+import 'package:syrian_cards/screens/navigation_home_screen.dart';
 
 class Login extends StatelessWidget {
   @override

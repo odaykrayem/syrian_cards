@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:syriancards/cetegory_cards.dart';
+import 'package:syrian_cards/cetegory_cards.dart';
 import 'app_theme.dart';
 import 'model/category.dart';
 
