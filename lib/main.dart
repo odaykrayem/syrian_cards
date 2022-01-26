@@ -6,17 +6,17 @@ import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:syrian_cards/screens/login_screen.dart';
 
 void main() {
-  OneSignal.shared.setNotificationWillShowInForegroundHandler(
-      (OSNotificationReceivedEvent event) {
-    // Will be called whenever a notification is received in foreground
-    // Display Notification, pass null param for not displaying the notification
-    event.complete(event.notification);
-  });
+  // OneSignal.shared.setNotificationWillShowInForegroundHandler(
+  //     (OSNotificationReceivedEvent event) {
+  //   // Will be called whenever a notification is received in foreground
+  //   // Display Notification, pass null param for not displaying the notification
+  //   event.complete(event.notification);
+  // });
 
-  OneSignal.shared
-      .setNotificationOpenedHandler((OSNotificationOpenedResult result) {
-    // Will be called whenever a notification is opened/button pressed.
-  });
+  // OneSignal.shared
+  //     .setNotificationOpenedHandler((OSNotificationOpenedResult result) {
+  //   // Will be called whenever a notification is opened/button pressed.
+  // });
   runApp(const MyApp());
 }
 
@@ -49,14 +49,14 @@ class _MyHomePageState extends State<MyHomePage> {
     super.initState();
     _example = animatedTextExamples();
     //Remove this method to stop OneSignal Debugging
-    OneSignal.shared.setLogLevel(OSLogLevel.verbose, OSLogLevel.none);
+//     OneSignal.shared.setLogLevel(OSLogLevel.verbose, OSLogLevel.none);
 
-    OneSignal.shared.setAppId("YOUR_ONESIGNAL_APP_ID");
+//     OneSignal.shared.setAppId("YOUR_ONESIGNAL_APP_ID");
 
-// The promptForPushNotificationsWithUserResponse function will show the iOS push notification prompt. We recommend removing the following code and instead using an In-App Message to prompt for notification permission
-    OneSignal.shared.promptUserForPushNotificationPermission().then((accepted) {
-      print("Accepted permission: $accepted");
-    });
+// // The promptForPushNotificationsWithUserResponse function will show the iOS push notification prompt. We recommend removing the following code and instead using an In-App Message to prompt for notification permission
+//     OneSignal.shared.promptUserForPushNotificationPermission().then((accepted) {
+//       print("Accepted permission: $accepted");
+//     });
   }
 
   @override
