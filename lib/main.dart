@@ -1,22 +1,32 @@
 import 'dart:math';
 
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-import 'package:onesignal_flutter/onesignal_flutter.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+// import 'package:onesignal_flutter/onesignal_flutter.dart';
+// import 'package:syrian_cards/constants.dart';
 import 'package:syrian_cards/screens/login_screen.dart';
+import 'package:syrian_cards/screens/notification_screen.dart';
+import 'package:syrian_cards/services/local_notifications_service.dart';
 
-void main() {
-  // OneSignal.shared.setNotificationWillShowInForegroundHandler(
-  //     (OSNotificationReceivedEvent event) {
-  //   // Will be called whenever a notification is received in foreground
-  //   // Display Notification, pass null param for not displaying the notification
-  //   event.complete(event.notification);
-  // });
+//onBackgroundMessage work on its own thread and it has its own isolate
+//recieve message when app in background solution for on message
+//work if app in background opened/closed
+Future<void> backgroundHandler(RemoteMessage message) async {
+  print(message.data.toString());
+  print(message.notification!.title);
+}
 
-  // OneSignal.shared
-  //     .setNotificationOpenedHandler((OSNotificationOpenedResult result) {
-  //   // Will be called whenever a notification is opened/button pressed.
-  // });
+//@oday : change main function to async
+//and  two lines of code added for initializing
+void main() async {
+  //
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  FirebaseMessaging.onBackgroundMessage(backgroundHandler);
+  //
   runApp(const MyApp());
 }
 
@@ -26,6 +36,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      routes: {
+        "notification": (_) => const NotificationScreen(),
+        "records": (_) => const NotificationScreen(),
+      },
       title: 'Animated Text Kit',
       debugShowCheckedModeBanner: false,
       theme: ThemeData.light(),
@@ -47,17 +61,51 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
+
     _example = animatedTextExamples();
-    //Remove this method to stop OneSignal Debugging
-//     OneSignal.shared.setLogLevel(OSLogLevel.verbose, OSLogLevel.none);
 
-//     OneSignal.shared.setAppId("YOUR_ONESIGNAL_APP_ID");
+    // seems context is delelted when pushreplacement
+    LocalNotificationService.initialize(context);
 
-// // The promptForPushNotificationsWithUserResponse function will show the iOS push notification prompt. We recommend removing the following code and instead using an In-App Message to prompt for notification permission
-//     OneSignal.shared.promptUserForPushNotificationPermission().then((accepted) {
-//       print("Accepted permission: $accepted");
-//     });
+    ///gives you the message on which user taps
+    ///and it opened the app from terminated state
+    FirebaseMessaging.instance.getInitialMessage().then((message) {
+      if (message != null) {
+        final routeFromMessage = message.data["route"];
+
+        Navigator.of(context).pushNamed(routeFromMessage);
+      }
+    });
+
+    ///forground work
+    FirebaseMessaging.onMessage.listen((message) {
+      if (message.notification != null) {
+        print(message.notification!.body);
+        print(message.notification!.title);
+      }
+
+      LocalNotificationService.display(message);
+    });
+
+    ///When the app is in background but opened and user taps
+    ///on the notification
+    FirebaseMessaging.onMessageOpenedApp.listen((message) {
+      final routeFromMessage = message.data["route"];
+
+      Navigator.of(context).pushNamed(routeFromMessage);
+    });
+
+    // configOneSignel();
   }
+
+  // Future<void> configOneSignel() async {
+  //   await OneSignal.shared.setAppId(oneSignalAppId);
+  // }
+
+  // Future<void> getToken() async {
+  //   var status = await OneSignal.shared.getPermissionSubscriptionState();
+  //   String tokenId = status.subscriptionStatus.userId;
+  // }
 
   @override
   Widget build(BuildContext context) {
