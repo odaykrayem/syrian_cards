@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "457397933284",
+    "project_id": "syriancard-888f4",
+    "storage_bucket": "syriancard-888f4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:457397933284:android:491021a30f6bfea8d1c8f1",
+        "android_client_info": {
+          "package_name": "com.example.syrian_cards"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "457397933284-f65lvagb6dmh1m6efpe2nmno88mtkejk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDId1tduxIDybQPrmMa5gwaCOcRSWxZy4g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "457397933284-f65lvagb6dmh1m6efpe2nmno88mtkejk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
